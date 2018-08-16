@@ -1,0 +1,59 @@
+function radar_content(){
+    this.source = "";
+    this.urltitle = "";
+    this.srcname = "";
+    this.authors = "";
+    this.urltime = "";
+    this.vreserved1 = "";
+    this.vreserved2 = "";
+
+}
+
+function TRS_Document_Content(urlname,urltitle,content){
+    var rval = new radar_content();
+    //content = content.replace(/&nbsp;/gi,'')
+
+    // for urltitle
+        match_1 = content.match(/<title>([\s\S]*?)<\/title>/)
+        if (match_1 && match_1.length>0){
+            rval.urltitle = match_1[1]
+        }  
+
+    // for content
+        match_2 = content.match(/style="padding:10px 40px 20px 40px;font-size:14px;line-height:25px;">([\s\S]*?)<!--EndFragment-->/)
+        if (match_2 && match_2.length>0){
+            rval.source = match_2[1]
+        }
+
+    // for srcname
+        match_3 = content.match(/发布机构：([\s\S]*?)生成日期：/)
+        if (match_3 && match_3.length>0){
+            rval.srcname = match_3[1]
+        }
+
+    // for authors
+        match_4 = content.match(/([\s\S]*?)/)
+        if (match_4 && match_4.length>0){
+            rval.authors = match_4[1]
+        }
+
+    // for urltime
+        match_5 = content.match(/生成日期：[\s\S]*?(\d{6,8})[\s\S]*?<\/tr>/)
+        if (match_5 && match_5.length>0){
+            rval.urltime = match_5[1].substring(0,4)+'-' +match_5[1].substring(4,6) +'-' +match_5[1].substring(6)
+        }
+
+    // for vreserved1
+        match_6 = content.match(/([\s\S]*?)/)
+        if (match_6 && match_6.length>0){
+            rval.vreserved1 = match_6[1]
+        }
+    
+    // for vreserved2
+        match_7 = content.match(/([\s\S]*?)/)
+        if (match_7 && match_7.length>0){
+            rval.vreserved2 = match_7[1]
+        }
+
+    return rval
+}
