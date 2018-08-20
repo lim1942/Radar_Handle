@@ -9,6 +9,7 @@
 """Script to clear point and group 
 	and js in radar dirctory ,
 	so you must be careful"""
+import os
 import sys
 ROOT_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(ROOT_PATH)
